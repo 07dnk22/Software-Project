@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatiable" content="IE=edge">
   <meta name="viewpoint" content="width=device-width, initial-scale=1.0">
   <title>Program Prototype Login Page</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style_Login.css">
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 
@@ -17,11 +17,11 @@
       <form method="post" action="register.php">
         <div class="input-box">
            <i class="fas fa-user"></i>
-           <input type="text" name="FirstName" id="FirstName" placeholder="First Name" required>
+           <input type="text" name="firstName" id="firstName" placeholder="First Name" required>
         </div>
         <div class="input-box">
             <i class="fas fa-user"></i>
-            <input type="text" name="LastName" id="LastName" placeholder="Last Name" required>
+            <input type="text" name="lastName" id="lastName" placeholder="Last Name" required>
         </div>
         <div class="input-box">
             <i class="fas fa-envelope"></i>
@@ -40,21 +40,23 @@
 
   <div class="container" id="Login">
     <h1>Login</h1>
-      <div class="input-box">
-        <input type="text" placeholder="ID" required>
-        <i class="bx bx-user"></i>
-      </div>
-      <div class="input-box">
-        <input type="password" placeholder="Password" required>
-        <i class="bx bx-lock-alt"></i>
-      </div>
+      <form method="post" action="register.php">
+        <div class="input-box">
+          <input type="text" placeholder="ID" required>
+          <i class="bx bx-user"></i>
+        </div>
+        <div class="input-box">
+          <input type="password" placeholder="Password" required>
+          <i class="bx bx-lock-alt"></i>
+        </div>
 
-      <div class="remember-forgot">
-        <label><input type="checkbox"> Remember me</label>
-        <a href="#">Forgot password?</a>
-      </div>
+        <div class="remember-forgot">
+          <label><input type="checkbox"> Remember me</label>
+          <a href="#">Forgot password?</a>
+        </div>
 
-      <button class="btn" onclick="login()">Login</button>
+        <button class="btn" onclick="login()">Login</button>
+      </form>
 
       <div class="register-link">
         <p>Don't have an account?</p><button id="RegisterBtn">Register</button>
