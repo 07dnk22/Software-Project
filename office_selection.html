@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Office Selection</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background-color: #f0f2f5;
+    }
+
+    /* Back button in the top-left corner */
+    .back-btn {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      padding: 10px 22px;
+      background-color: #ffffff;
+      color: #333;
+      text-decoration: none;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: bold;
+      transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+    }
+
+    .back-btn:hover {
+      background-color: #333;
+      color: #ffffff;
+      transform: translateX(-3px);
+    }
+
+    /* Container that centers the two square buttons */
+    .office-container {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 60px;
+    }
+
+    /* Large square buttons */
+    .office-btn {
+      width: 220px;
+      height: 220px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #4a6cf7;
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 28px;
+      font-weight: bold;
+      border-radius: 16px;
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+      transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .office-btn:hover {
+      background-color: #2f4ad0;
+      transform: translateY(-8px);
+      box-shadow: 0 12px 22px rgba(0, 0, 0, 0.25);
+    }
+  </style>
+</head>
+
+<body>
+  <a href="main_page.html" class="back-btn">&larr; Back</a>
+
+  <div class="office-container">
+    <a href="office_a.php" class="office-btn">Office A</a>
+    <a href="office_b.php" class="office-btn">Office B</a>
+  </div>
+</body>
+
+</html>

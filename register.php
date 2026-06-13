@@ -39,7 +39,7 @@ if(isset($_POST['Login'])){
     session_start();
     $row=$result->fetch_assoc();
     $_SESSION['email']=$row['email'];
-    header("Location: homepage.php");
+    header("Location: main_page.html");
     exit();
    }
    else{

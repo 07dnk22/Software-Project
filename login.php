@@ -42,20 +42,15 @@
     <h1>Login</h1>
       <form method="post" action="register.php">
         <div class="input-box">
-          <input type="text" placeholder="ID" required>
+          <input type="email" name="email" placeholder="Email" required>
           <i class="bx bx-user"></i>
         </div>
         <div class="input-box">
-          <input type="password" placeholder="Password" required>
+          <input type="password" name="password" placeholder="Password" required>
           <i class="bx bx-lock-alt"></i>
         </div>
 
-        <div class="remember-forgot">
-          <label><input type="checkbox"> Remember me</label>
-          <a href="#">Forgot password?</a>
-        </div>
-
-        <button class="btn" onclick="login()">Login</button>
+        <input type="submit" class="btn" value="Login" name="Login">
       </form>
 
       <div class="register-link">
