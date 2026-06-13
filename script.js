@@ -11,3 +11,16 @@ LoginBtn.addEventListener('click', function(){
     LoginForm.style.display="block";
     RegisterForm.style.display="none";
 })
+
+function project(){
+    window.location.href="message.html";
+}
+
+function aboutPage(){
+    window.location.href="AboutPage.html";
+}
+
+function logout() {
+    window.location.href = "login.html";
+}
+
