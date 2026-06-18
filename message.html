@@ -25,14 +25,36 @@
 
             <div class="container">
                 <h1>Leave an Anonymous Message</h1>
-                <form>
+                <div id="statusMessage" class="status-msg"></div>
+                <form action="submit_message.php" method="POST">
                 <label for="message">Your message</label>
-                <textarea id="message" name="message" placeholder="Write your anonymous message here..."></textarea>
+                <textarea id="message" name="message" placeholder="Write your anonymous message here..." required></textarea>
                 <button type="submit">Send Message</button>
                 <p class="note">No name or email is required. This message will remain anonymous.</p>
                 </form>
             </div>
         </main>
         <script src="script.js"></script>
+        <script>
+            // Display status message after form submission redirect
+            const urlParams = new URLSearchParams(window.location.search);
+            const status = urlParams.get('status');
+            const statusMsg = document.getElementById('statusMessage');
+            
+            if (status === 'success') {
+                statusMsg.textContent = '✓ Your anonymous message has been sent successfully!';
+                statusMsg.className = 'status-msg success';
+                // Remove the status parameter from URL without refreshing
+                window.history.replaceState({}, document.title, window.location.pathname);
+            } else if (status === 'error') {
+                statusMsg.textContent = '✗ An error occurred. Please try again.';
+                statusMsg.className = 'status-msg error';
+                window.history.replaceState({}, document.title, window.location.pathname);
+            } else if (status === 'empty') {
+                statusMsg.textContent = 'Please write a message before submitting.';
+                statusMsg.className = 'status-msg error';
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
+        </script>
     </body>
 <html>
