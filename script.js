@@ -21,7 +21,7 @@ function aboutPage(){
 }
 
 function logout() {
-    window.location.href = "login.html";
+    window.location.href = "logout.php";
 }
 
 function office_sel() {
