@@ -15,8 +15,8 @@ if(isset($_POST['signUp'])){
         echo "Email Address Already Exists !";
      }
      else{
-        $insertQuery="INSERT INTO users(firstName,lastName,email,password)
-                       VALUES ('$firstName','$lastName','$email','$password')";
+        $insertQuery="INSERT INTO users(firstName,lastName,email,password,isAdmin)
+                       VALUES ('$firstName','$lastName','$email','$password',0)";
             if($conn->query($insertQuery)==TRUE){
                 header("location: login.php");
             }
@@ -39,6 +39,7 @@ if(isset($_POST['Login'])){
     session_start();
     $row=$result->fetch_assoc();
     $_SESSION['email']=$row['email'];
+    $_SESSION['isAdmin']=$row['isAdmin'];
     header("Location: AboutPage.html");
     exit();
    }

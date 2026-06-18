@@ -8,13 +8,24 @@ if (!isset($_SESSION['email'])) {
 }
 
 $email = $_SESSION['email'];
+$isAdmin = isset($_SESSION['isAdmin']) ? $_SESSION['isAdmin'] : 0;
 
-// Get all taken seats in Office B
+// Get all taken seats in Office B (with occupant email if admin)
 $takenSeats = [];
-$takenQuery = "SELECT seat_number FROM seats WHERE office = 'B'";
-$takenResult = $conn->query($takenQuery);
-while ($row = $takenResult->fetch_assoc()) {
-    $takenSeats[] = intval($row['seat_number']);
+$occupantEmails = [];
+if ($isAdmin) {
+    $takenQuery = "SELECT seat_number, email FROM seats WHERE office = 'B'";
+    $takenResult = $conn->query($takenQuery);
+    while ($row = $takenResult->fetch_assoc()) {
+        $takenSeats[] = intval($row['seat_number']);
+        $occupantEmails[intval($row['seat_number'])] = $row['email'];
+    }
+} else {
+    $takenQuery = "SELECT seat_number FROM seats WHERE office = 'B'";
+    $takenResult = $conn->query($takenQuery);
+    while ($row = $takenResult->fetch_assoc()) {
+        $takenSeats[] = intval($row['seat_number']);
+    }
 }
 
 // Get current user's seat (if any)
@@ -221,8 +232,18 @@ $conn->close();
     function createSeatButton(seatNumber) {
       const btn = document.createElement('button');
       btn.className = 'seat-btn';
-      btn.textContent = seatNumber;
       btn.dataset.seat = seatNumber;
+
+<?php if ($isAdmin): ?>
+      // Show seat number and occupant email for admin
+      if (takenSeats.includes(seatNumber) && !(userOffice === 'B' && userSeat === seatNumber)) {
+        btn.innerHTML = seatNumber + '<br><span style="font-size:9px;font-weight:normal;">' + <?php echo json_encode($occupantEmails); ?>[seatNumber] + '</span>';
+      } else {
+        btn.textContent = seatNumber;
+      }
+<?php else: ?>
+      btn.textContent = seatNumber;
+<?php endif; ?>
 
       // Mark as taken if someone else has this seat
       if (takenSeats.includes(seatNumber) && !(userOffice === 'B' && userSeat === seatNumber)) {
@@ -268,12 +289,12 @@ $conn->close();
     const leftGrid = document.getElementById('leftGrid');
     const rightGrid = document.getElementById('rightGrid');
 
-    // Create buttons 1-12 in the left grid
+    // Buttons 1-12 in the left grid
     for (let i = 1; i <= 12; i++) {
       leftGrid.appendChild(createSeatButton(i));
     }
 
-    // Create buttons 13-24 in the right grid
+    // Buttons 13-24 in the right grid
     for (let i = 13; i <= 24; i++) {
       rightGrid.appendChild(createSeatButton(i));
     }

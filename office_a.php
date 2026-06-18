@@ -8,13 +8,24 @@ if (!isset($_SESSION['email'])) {
 }
 
 $email = $_SESSION['email'];
+$isAdmin = isset($_SESSION['isAdmin']) ? $_SESSION['isAdmin'] : 0;
 
-// Get all taken seats in Office A
+// Get all taken seats in Office A (with occupant email if admin)
 $takenSeats = [];
-$takenQuery = "SELECT seat_number FROM seats WHERE office = 'A'";
-$takenResult = $conn->query($takenQuery);
-while ($row = $takenResult->fetch_assoc()) {
-    $takenSeats[] = intval($row['seat_number']);
+$occupantEmails = [];
+if ($isAdmin) {
+    $takenQuery = "SELECT seat_number, email FROM seats WHERE office = 'A'";
+    $takenResult = $conn->query($takenQuery);
+    while ($row = $takenResult->fetch_assoc()) {
+        $takenSeats[] = intval($row['seat_number']);
+        $occupantEmails[intval($row['seat_number'])] = $row['email'];
+    }
+} else {
+    $takenQuery = "SELECT seat_number FROM seats WHERE office = 'A'";
+    $takenResult = $conn->query($takenQuery);
+    while ($row = $takenResult->fetch_assoc()) {
+        $takenSeats[] = intval($row['seat_number']);
+    }
 }
 
 // Get current user's seat (if any)
@@ -192,12 +203,22 @@ $conn->close();
     const messageEl = document.getElementById('message');
     let selectedSeat = null;
 
-    // Create 12 buttons (1-12) in a 3-column grid
+    // 12 buttons in a 3-column grid
     for (let i = 1; i <= 12; i++) {
       const btn = document.createElement('button');
       btn.className = 'seat-btn';
-      btn.textContent = i;
       btn.dataset.seat = i;
+
+<?php if ($isAdmin): ?>
+      // Show seat number and occupant email for admin
+      if (takenSeats.includes(i) && !(userOffice === 'A' && userSeat === i)) {
+        btn.innerHTML = i + '<br><span style="font-size:9px;font-weight:normal;">' + <?php echo json_encode($occupantEmails); ?>[i] + '</span>';
+      } else {
+        btn.textContent = i;
+      }
+<?php else: ?>
+      btn.textContent = i;
+<?php endif; ?>
 
       // Mark as taken if someone else has this seat
       if (takenSeats.includes(i) && !(userOffice === 'A' && userSeat === i)) {
